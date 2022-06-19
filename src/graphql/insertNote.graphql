@@ -1,0 +1,7 @@
+mutation InsertNote($input: notes_insert_input!) {
+  insert_notes_one(object: $input) {
+    id
+    text
+  }
+}
+

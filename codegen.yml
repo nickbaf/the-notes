@@ -1,0 +1,9 @@
+overwrite: true
+schema: "https://content-redfish-61.hasura.app/v1/graphql"
+documents: "src/graphql/*.graphql"
+generates:
+  src/generated/grapql-notes.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
