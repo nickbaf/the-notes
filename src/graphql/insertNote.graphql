@@ -4,4 +4,3 @@ mutation InsertNote($input: notes_insert_input!) {
     text
   }
 }
-

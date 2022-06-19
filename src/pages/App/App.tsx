@@ -1,61 +1,49 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import React from 'react';
-import logo from './logo.svg';
-import '../../css/App.css';
-import { Container } from "@mui/system";
-import { CssBaseline,Box, Stack} from "@mui/material";
+import { AppBar, Box, Stack, Toolbar, Typography, Skeleton } from '@mui/material';
 import { useNotesQuery } from "../../generated/grapql-notes";
-import AddNoteForm from "../NewNoteComponent/NewNoteComponent";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
+import InsertNoteDialog from "../NewNoteComponent/InsertNoteDialog";
+import style from '../../css/App.module.css'
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
+  backgroundColor:'#1A2027',
+  padding: theme.spacing(3),
+  textAlign: 'center'
 }));
 
-
 function App() {
-  
+
   const { data, loading, error, refetch } = useNotesQuery();
   const notes = data?.notes;
   return (
-  
-    //   <div>
-    //   <h1>
-    //     <title>The Notes</title>
-    //   </h1>
-    //   <h2>The Notes</h2>
-    //   {loading ? (
-    //     <p>Fetching notes</p>
-    //   ) : error ? (
-    //     <p>An error occurred.</p>
-    //   ) : notes && notes.length ? (
-    //     <ul >
-    //       {notes.map((note) => {
-    //         return <li key={note.id}>{note.text}</li>;
-    //       })}
-    //     </ul>
-    //   ) : (
-    //     <p>You've got no notes.</p>
-    //   )}
-    //  
-    // </div>
-    <div>
-    
-    <Box sx={{ width: '80%' }}>
-      <Stack spacing={2}>
-      <AddNoteForm onSuccess={refetch} />
-      {notes?.map((note) => {
-             return <Item>{note.text}</Item>;
-           })}
-      </Stack>
+    <Box sx={{ width: '100%' }}>
+      <AppBar className={style.bar} position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            The Notes
+          </Typography>
+          <InsertNoteDialog onSuccess={refetch} />
+        </Toolbar>
+      </AppBar>
+      {loading ? (
+        <Box className={style.skeleton} sx={{ width:'100%' }}>
+        <Skeleton sx={{ height: '7em' }} animation="wave"/>
+        <Skeleton sx={{ height: '7em' }} animation="wave"/>
+        <Skeleton sx={{ height: '7em' }} animation="wave"/>
+        <Skeleton sx={{ height: '7em' }} animation="wave"/>
+      </Box>
+      ) : error ? (
+        <Item className={style.noNotes} style={{overflowWrap: 'break-word'}} >An error occured.</Item>
+      ) : notes && notes.length ? (
+        <Stack  className={style.content} spacing={5}>
+        {notes?.map((note) => {
+               return <Item className={style.item} style={{overflowWrap: 'break-word'}} >{note.text}</Item>;
+             })}
+        </Stack>
+      ) : (
+        <Item className={style.noNotes} style={{overflowWrap: 'break-word'}}>404 Notes not found</Item>
+      )}
     </Box>
-</div>
   );
 }
 

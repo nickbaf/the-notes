@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+
+
+.bar{
+  background-color: rgb(39,140,115);
+  color: black;
+  height: 4em;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-bottom: 10%;
+  z-index: 1;
+}
+
+.content{
+margin-top: 10em;
+margin-right: 5em;
+margin-left: 5em;
+}
+
+
+.item{
+  background-color: rgb(227,241,238);
+  width: 100%;
+} 
+
+.skeleton{
+  margin-top: 6em;
+}
+
+Skeleton{
+  height: '10em' 
+}
+
+.noNotes{
+  background-color: rgb(203, 72, 32);
+  margin-top: 10em;
+  margin-right: 5em;
+  margin-left: 5em;
+} 
